@@ -5,10 +5,10 @@ import org.springframework.stereotype.Service;
 
 import com.example.demo.dao.interfaces.UserDao;
 import com.example.demo.entity.Users;
-import com.example.demo.service.interfaces.passCheckService;
+import com.example.demo.service.interfaces.UsersService;
 
 @Service
-public class passCheckServiceImp implements passCheckService {
+public class UsersServiceImpl implements UsersService {
 	@Autowired
 	private UserDao userDao;
 	

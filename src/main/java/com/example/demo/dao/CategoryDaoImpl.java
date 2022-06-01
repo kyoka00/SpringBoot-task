@@ -12,7 +12,7 @@ import com.example.demo.dao.interfaces.CategoryDao;
 import com.example.demo.entity.Categories;
 
 @Repository
-public class CategoryDaoImp implements CategoryDao{
+public class CategoryDaoImpl implements CategoryDao{
 	
 	private static final String SQL_SELECT_CATEGORY= "SELECT * FROM categories";
 	

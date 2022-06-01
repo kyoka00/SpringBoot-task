@@ -13,13 +13,13 @@ import com.example.demo.dao.interfaces.ProductsDao;
 import com.example.demo.entity.Products;
 
 @Repository
-public class ProductsDaoImp implements ProductsDao{
+public class ProductsDaoImpl implements ProductsDao{
 	
 	//private static final String SQL_COUNT = "SELECT count(*) AS count FROM products p JOIN categories c ON p.category_id = c.id WHERE p.name LIKE :likeProductName OR c.name LIKE :likeCategoryName";
 	private static final String SQL_WHERE = "SELECT p.product_id, p.name AS product_name,"
 			+ "c.id AS category_id,c.name AS category_name, p.price, p.description "
-			+ "FROM products p JOIN categories c ON p.category_id = c.id WHERE p.name LIKE :likeProductName "
-			+ "OR c.name LIKE :likeCategoryName";
+			+ "FROM products p JOIN categories c ON p.category_id = c.id WHERE p.name OR "
+			+ "c.name LIKE '%' OR :keyword OR '%'  ORDERR BY p.product_id";
 	
 	private static final String SQL_INSERT = "INSERT INTO products (product_id, category_id, name, price, description, created_at)"
 			+ " VALUES (:productId, :categoryId, :productName, :price, :description, :createdAt)" ;
@@ -37,8 +37,7 @@ public class ProductsDaoImp implements ProductsDao{
 	public List<Products> select(String searchKey){
 		String sql = SQL_WHERE;
 		MapSqlParameterSource param = new MapSqlParameterSource();
-		param.addValue("likeProductName", searchKey);
-		param.addValue("likeCategoryName", searchKey);
+		param.addValue("keyword", searchKey);
 		
 		List<Products> resultList = jdbcTemplate.query(sql, param, new BeanPropertyRowMapper<Products>(Products.class));
 		
@@ -58,30 +57,30 @@ public class ProductsDaoImp implements ProductsDao{
 	 * 
 	 * return resultList.isEmpty() ? null :resultList.get(0); }
 	 */
-	public void insert(Integer productId, Integer categoryId, String productName, Integer price, String description) {
+	public void insert(Products products) {
 		String sql = SQL_INSERT;
 		MapSqlParameterSource param = new MapSqlParameterSource();
-		param.addValue("productId",productId);
-		param.addValue("categoryId", categoryId);
-		param.addValue("productName", productName);
-		param.addValue("price", price);
-		param.addValue("description", description);
+		param.addValue("productId",products.getProductId());
+		param.addValue("categoryId", products.getCategoryId());
+		param.addValue("productName", products.getName());
+		param.addValue("price", products.getPrice());
+		param.addValue("description", products.getDescription());
 		param.addValue("createdAt", new Timestamp(System.currentTimeMillis()));
 
 		jdbcTemplate.update(sql, param);
 
 	}
 
-	public void update(Integer productId, Integer categoryId, String productName, Integer price, String description) {
+	public void update(Products products) {
 		String sql = SQL_UPDATE;
 		MapSqlParameterSource param = new MapSqlParameterSource();
-		param.addValue("productId",productId);
-		param.addValue("categoryId", categoryId);
-		param.addValue("productName", productName);
-		param.addValue("price", price);
-		param.addValue("description", description);
+		param.addValue("productId",products.getProductId());
+		param.addValue("categoryId", products.getCategoryId());
+		param.addValue("productName", products.getName());
+		param.addValue("price", products.getPrice());
+		param.addValue("description", products.getDescription());
 		param.addValue("updatedAt", new Timestamp(System.currentTimeMillis()));
-		param.addValue("idInsert", productId);
+		param.addValue("idInsert", products.getProductId());
 
 		jdbcTemplate.update(sql, param);
 	}

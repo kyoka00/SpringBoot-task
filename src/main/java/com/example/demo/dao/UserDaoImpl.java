@@ -12,7 +12,7 @@ import com.example.demo.dao.interfaces.UserDao;
 import com.example.demo.entity.Users;
 
 @Repository
-public class UserDaoImp implements UserDao{
+public class UserDaoImpl implements UserDao{
 	
 	private static final String SQL_LOGINSEARCH="SELECT login_id, password, name FROM users WHERE login_id = :id AND password= :password";
 	
