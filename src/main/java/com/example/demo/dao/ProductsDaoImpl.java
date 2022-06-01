@@ -18,8 +18,8 @@ public class ProductsDaoImpl implements ProductsDao{
 	//private static final String SQL_COUNT = "SELECT count(*) AS count FROM products p JOIN categories c ON p.category_id = c.id WHERE p.name LIKE :likeProductName OR c.name LIKE :likeCategoryName";
 	private static final String SQL_WHERE = "SELECT p.product_id, p.name AS product_name,"
 			+ "c.id AS category_id,c.name AS category_name, p.price, p.description "
-			+ "FROM products p JOIN categories c ON p.category_id = c.id WHERE p.name OR "
-			+ "c.name LIKE '%' OR :keyword OR '%'  ORDERR BY p.product_id";
+			+ "FROM products p JOIN categories c ON p.category_id = c.id WHERE p.name LIKE :keyword OR "
+			+ "c.name LIKE :keyword ORDER BY p.product_id";
 	
 	private static final String SQL_INSERT = "INSERT INTO products (product_id, category_id, name, price, description, created_at)"
 			+ " VALUES (:productId, :categoryId, :productName, :price, :description, :createdAt)" ;
@@ -37,7 +37,7 @@ public class ProductsDaoImpl implements ProductsDao{
 	public List<Products> select(String searchKey){
 		String sql = SQL_WHERE;
 		MapSqlParameterSource param = new MapSqlParameterSource();
-		param.addValue("keyword", searchKey);
+		param.addValue("keyword", '%'+searchKey+ '%');
 		
 		List<Products> resultList = jdbcTemplate.query(sql, param, new BeanPropertyRowMapper<Products>(Products.class));
 		
@@ -62,7 +62,7 @@ public class ProductsDaoImpl implements ProductsDao{
 		MapSqlParameterSource param = new MapSqlParameterSource();
 		param.addValue("productId",products.getProductId());
 		param.addValue("categoryId", products.getCategoryId());
-		param.addValue("productName", products.getName());
+		param.addValue("productName", products.getProductName());
 		param.addValue("price", products.getPrice());
 		param.addValue("description", products.getDescription());
 		param.addValue("createdAt", new Timestamp(System.currentTimeMillis()));
@@ -76,7 +76,7 @@ public class ProductsDaoImpl implements ProductsDao{
 		MapSqlParameterSource param = new MapSqlParameterSource();
 		param.addValue("productId",products.getProductId());
 		param.addValue("categoryId", products.getCategoryId());
-		param.addValue("productName", products.getName());
+		param.addValue("productName", products.getProductName());
 		param.addValue("price", products.getPrice());
 		param.addValue("description", products.getDescription());
 		param.addValue("updatedAt", new Timestamp(System.currentTimeMillis()));

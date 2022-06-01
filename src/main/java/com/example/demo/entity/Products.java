@@ -2,9 +2,9 @@ package com.example.demo.entity;
 
 public class Products {
 	private Integer productId;
-	private String name;
+	private String productName;
 	private Integer categoryId;
-	private String category;
+	private String categoryName;
 	private Integer price;
 	private String description;
 	private String createdAt;
@@ -16,11 +16,11 @@ public class Products {
 	public void setCategoryId(Integer categoryId) {
 		this.categoryId = categoryId;
 	}
-	public String getCategory() {
-		return category;
+	public String getCategoryName() {
+		return categoryName;
 	}
-	public void setCategory(String category) {
-		this.category = category;
+	public void setCategoryName(String categoryName) {
+		this.categoryName = categoryName;
 	}
 	public int getProductId() {
 		return productId;
@@ -28,11 +28,11 @@ public class Products {
 	public void setProductId(Integer product_id) {
 		this.productId = product_id;
 	}
-	public String getName() {
-		return name;
+	public String getProductName() {
+		return productName;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public void setProductName(String productName) {
+		this.productName = productName;
 	}
 	public int getPrice() {
 		return price;
@@ -62,11 +62,11 @@ public class Products {
 	public Products() {
 		
 	}
-	public Products(Integer productId, String name, Integer categoryId, String category, Integer price, String description) {
+	public Products(Integer productId, String productName, Integer categoryId, String categoryName, Integer price, String description) {
 		setProductId(productId);
-		setName(name);
+		setProductName(productName);
 		setCategoryId(categoryId);
-		setCategory(category);
+		setCategoryName(categoryName);
 		setPrice(price);
 		setDescription(description);
 	}

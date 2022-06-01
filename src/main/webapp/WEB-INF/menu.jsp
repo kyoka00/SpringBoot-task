@@ -2,6 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,7 +18,7 @@
     <div class="header">
       <h1 class="site_logo"><a href="AllShowServlet">商品管理システム</a></h1>
       <div class="user">
-        <p class="user_name">${fn:escapeXml(userInfo.getName())}さん、こんにちは</p>
+        <p class="user_name">${fn:escapeXml(userName)}さん、こんにちは</p>
         <form class="logout_form" action="logout.jsp" method="get">
           <button class="logout_btn" type="submit">
             <img src="images/ドアアイコン.png">ログアウト</button>
@@ -31,10 +33,10 @@
     	<p>${menuMsg}</p>
     </c:if>
     
-    <form method="get" action="SearchMenuServlet" class="search_container" id ="send">
-      <input type="text" size="25" placeholder="キーワード検索" name = "searchValue">
-      <input type="submit" value="&#xf002">
-    </form>
+    <form:form action="search" modelAttribute = "users" acceptCharset="UTF-8" id ="send">
+      <form:input  path = "searchKey" size="25" placeholder="キーワード検索"/>
+      <form:button name ="search">検索</form:button>
+    </form:form>
 
     <table>
     
@@ -64,12 +66,12 @@
       </thead>
       <tbody>
       
-		<c:forEach var="p" items ="${list}" varStatus ="status">
+		<c:forEach var="p" items ="${productList}" varStatus ="status">
           <tr>
             <td>${fn:escapeXml(p.getProductId())}</td>
-            <td>${fn:escapeXml(p.getName())}</td>
+            <td>${fn:escapeXml(p.getProductName())}</td>
             <td>${fn:escapeXml(p.getPrice())}</td>
-            <td>${fn:escapeXml(p.getCategory())}</td>
+            <td>${fn:escapeXml(p.getCategoryName())}</td>
             <td><a class="detail_btn" href="./GetDetail?productNo=${status.count}">
             詳細</a></td>
           </tr>

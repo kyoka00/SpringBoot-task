@@ -14,7 +14,7 @@
   <div class="header">
     <h1 class="site_logo"><a href="AllShowServlet">商品管理システム</a></h1>
     <div class="user">
-      <p class="user_name">${fn:escapeXml(userInfo.getName())}さん、こんにちは</p>
+      <p class="user_name">${fn:escapeXml(userName)}さん、こんにちは</p>
       <form class="logout_form" action="logout.jsp" method="get">
         <button class="logout_btn" type="submit">
           <img src="images/ドアアイコン.png">ログアウト</button>

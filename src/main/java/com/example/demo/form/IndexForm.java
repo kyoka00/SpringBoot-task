@@ -1,9 +1,17 @@
 package com.example.demo.form;
 
+import javax.validation.constraints.NotBlank;
+
 public class IndexForm {
+	//index
+	@NotBlank
 	private String loginId;
+	
+	@NotBlank
 	private String pass;
 	
+	//menu
+	private String searchKey;
 	
 	public String getLoginId() {
 		return loginId;
@@ -18,5 +26,10 @@ public class IndexForm {
 		this.pass = pass;
 	}
 	
-	
+	public String getSearchKey() {
+		return searchKey;
+	}
+	public void setSearchKey(String searchKey) {
+		this.searchKey = searchKey;
+	}
 }

@@ -13,8 +13,10 @@ public class UsersServiceImpl implements UsersService {
 	private UserDao userDao;
 	
 	public String loginUser(String loginId, String password) {
+		
 		Users u = userDao.loginSearch(loginId, password);
-		return u.getName();
+		
+		return u==null ? "": u.getName();
 	}
 	
 	/*public boolean loginCheck(String loginId, String password) {

@@ -20,13 +20,13 @@ public class UserDaoImpl implements UserDao{
 	private NamedParameterJdbcTemplate jdbcTemplate;
 	
 	
-	public Users loginSearch(String loginId, String password) {
+	public Users loginSearch(String id, String pass) {
 		String sql = SQL_LOGINSEARCH;
 		MapSqlParameterSource param = new MapSqlParameterSource();
-		param.addValue("id", loginId);
-		param.addValue("password", password);
+		param.addValue("id", id);
+		param.addValue("password", pass);
 		
-		List<Users>resultList = jdbcTemplate.query(sql, new BeanPropertyRowMapper<Users>(Users.class));
+		List<Users>resultList = jdbcTemplate.query(sql,param, new BeanPropertyRowMapper<Users>(Users.class));
 		return resultList.isEmpty()? null: resultList.get(0);
 	}
 }

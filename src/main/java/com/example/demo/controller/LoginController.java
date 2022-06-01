@@ -2,6 +2,8 @@ package com.example.demo.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,26 +27,33 @@ public class LoginController {
 	@Autowired
 	ProductService productService;
 	
-	@RequestMapping("/index")
-	public String index(@ModelAttribute("users") IndexForm form, Model model) {
+	@Autowired
+	  HttpSession session;
+	
+	@RequestMapping("/logintop")
+	public String logintop(@ModelAttribute("users") IndexForm form, Model model) {
 		return "index";
 	}
 	
-	@RequestMapping(value = "/execute", method = RequestMethod.POST)
-	public String login(@Validated @ModelAttribute("users") IndexForm form, BindingResult bindingResult, Model model) {
+	@RequestMapping(value ={"/excute","/search"} , params="login" , method = RequestMethod.POST)
+	public String login(@Validated @ModelAttribute("users")  IndexForm form, BindingResult bindingResult, Model model) {
 		if(bindingResult.hasErrors()) {
 			return "index";
 		}
+		String admin ="admin";
 		String userName = usersService.loginUser(form.getLoginId(),form.getPass());
-		if(!userName.equals(null)) {
+		
+		if(userName.equals(null) || userName.equals("")) {
 			model.addAttribute("LoginMsg", "IDかPASSが一致しません");
 			return "index";
+		}else {
+			session.setAttribute("userName",userName);
+			
+			List<Products> products = productService.select("");
+			model.addAttribute("productList", products);
+			model.addAttribute("count", products.size());
+			return "menu";
 		}
-		model.addAttribute("userName", userName);
 		
-		List<Products> products = productService.select("");
-		model.addAttribute("productList", products);
-		
-		return "menu";
 	}
 }
