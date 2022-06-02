@@ -70,5 +70,12 @@ public class Products {
 		setPrice(price);
 		setDescription(description);
 	}
+	public Products(Integer productId, String productName, Integer categoryId, Integer price, String description) {
+		setProductId(productId);
+		setProductName(productName);
+		setCategoryId(categoryId);
+		setPrice(price);
+		setDescription(description);
+	}
 	
 }

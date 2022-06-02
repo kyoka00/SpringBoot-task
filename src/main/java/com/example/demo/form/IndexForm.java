@@ -10,8 +10,6 @@ public class IndexForm {
 	@NotBlank
 	private String pass;
 	
-	//menu
-	private String searchKey;
 	
 	public String getLoginId() {
 		return loginId;
@@ -26,10 +24,4 @@ public class IndexForm {
 		this.pass = pass;
 	}
 	
-	public String getSearchKey() {
-		return searchKey;
-	}
-	public void setSearchKey(String searchKey) {
-		this.searchKey = searchKey;
-	}
 }

@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,7 +15,7 @@
   <div class="header">
     <h1 class="site_logo"><a href="AllShowServlet">商品管理システム</a></h1>
     <div class="user">
-      <p class="user_name">${fn:escapeXml(useName)}さん、こんにちは</p>
+      <p class="user_name">${fn:escapeXml(userName)}さん、こんにちは</p>
       <form class="logout_form" action="logout.jsp" method="get">
         <button class="logout_btn" type="submit">
           <img src="images/ドアアイコン.png">ログアウト</button>
@@ -35,40 +36,40 @@
     <c:if test= "${not empty insertMsg}">
       <p class="error">${insertMsg}</p>
  	 </c:if>
-      <form action="InsertNewInfo" method="get">
+      <form:form action="inset" modelAttribute="users" acceptCharset="UTF-8">
         <fieldset class="label-130">
           <div>
             <label class="required">商品ID</label>
-            <input type="text" name="productId" class="base-text">
-            <c:if test= "${not empty nullErrorIdInsert}">
-     		 	<p class="error">${nullErrorIdInsert}</p>
+            <form:input path="productId" class="base-text"/>
+            <c:if test= "${not empty insertMsg}">
+     		 	<form:errors path="productId" cssStyle="color: red" />
  			 </c:if>
             
             
           </div>
           <div>
             <label class="required">商品名</label>
-            <input type="text" name="productName" class="base-text">
-            <c:if test= "${not empty nullErrorNameInsert}">
-     		 <p class="error">${nullErrorNameInsert}</p>
+            <form:input path="productName" class="base-text"/>
+            <c:if test= "${not empty insertMsg}">
+     		 <form:errors path="productName" cssStyle="color: red" />
  			 </c:if>
             
           </div>
           <div>
             <label class="required">単価</label>
-            <input type="text" name="price" class="base-text">
-            <c:if test= "${not empty nullErrorPriceInsert}">
-      			<p class="error">${nullErrorPriceInsert}</p>
+            <form:input path="price" class="base-text"/>
+            <c:if test= "${not empty insertMsg}">
+      			<form:errors path="price" cssStyle="color: red" />
  	 		</c:if>
             
           </div>
           <div class="select_block">
             <label class="required">カテゴリ</label>
-            <select name="category" class="base-text">
+            <form:select path="category" class="base-text">
               <c:forEach var= "c" items="${categoryList}" varStatus = "status">
              	<option value="${fn:escapeXml(c.getId())}">${fn:escapeXml(c.getName())}</option>
              </c:forEach>
-            </select>
+            </form:select>
           </div>
           <div>
             <label>商品説明</label>
@@ -87,11 +88,11 @@
         <div id="modal">
           <p class="modal_message">登録しますか？</p>
           <div class="btns">
-            <button type="submit" class="basic_btn">登録</button>
+            <form:button class="basic_btn" name ="insetSubmit">登録</form:button>
             <button type="button" onclick="closeModal()" class="cancel_btn">キャンセル</button>
           </div>
         </div>
-      </form>
+      </form:form>
     </div>
   </div>
   <div id="fadeLayer"></div>

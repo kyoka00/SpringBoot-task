@@ -10,5 +10,5 @@ public interface ProductService {
 	public void insert(Products products);
 	public List<Products> select(String searchKey);
 	public void update(Products products);
-	
+	public List<Object> selectAll();
 }

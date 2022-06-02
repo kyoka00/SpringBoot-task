@@ -16,10 +16,10 @@
   <div id="app">
 
     <div class="header">
-      <h1 class="site_logo"><a href="AllShowServlet">商品管理システム</a></h1>
+      <h1 class="site_logo"><a href="menu">商品管理システム</a></h1>
       <div class="user">
         <p class="user_name">${fn:escapeXml(userName)}さん、こんにちは</p>
-        <form class="logout_form" action="logout.jsp" method="get">
+        <form class="logout_form" action="logout" method="get">
           <button class="logout_btn" type="submit">
             <img src="images/ドアアイコン.png">ログアウト</button>
         </form>
@@ -28,17 +28,17 @@
 
     <hr>
 	<form:form action ="category" modelAttribute ="users">
-    <div class="btn"><form:button class="basic_btn regist" name="categoryBtn">新規登録</form:button></div>
+    <div class="btn"><form:button class="basic_btn regist" name="insertBtn">新規登録</form:button></div>
      </form:form>
       
       <c:if test = "${not empty menuMsg }">
     	<p>${menuMsg}</p>
     </c:if>
     
-    <form:form action="search" modelAttribute = "users" acceptCharset="UTF-8" id ="send">
-      <form:input  path = "searchKey" size="25" placeholder="キーワード検索"/>
-      <form:button name ="search">検索</form:button>
-    </form:form>
+    <form action="${pageContext.request.contextPath}/search" id ="send" method="get" >
+      <input name = "searchKey" size="25" placeholder="キーワード検索"/>
+      <button name ="search">検索</button>
+    </form>
 
     <table>
     

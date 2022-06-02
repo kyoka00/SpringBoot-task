@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,4 +31,14 @@ public class ProductServiceImpl implements ProductService{
 		
 	}
 	
+	public List<Object> selectAll(){
+		List<Products> p = select("");
+		int count = p.size();
+		List<Object> list = new ArrayList<>();
+		list.add(p);
+		list.add(count);
+		
+		return list;
+		
+	}
 }
