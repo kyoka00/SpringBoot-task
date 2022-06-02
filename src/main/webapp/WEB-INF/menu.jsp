@@ -27,8 +27,10 @@
     </div>
 
     <hr>
-
-    <div class="btn"><a class="basic_btn regist" href="GetCategory">新規登録</a></div>
+	<form:form action ="category" modelAttribute ="users">
+    <div class="btn"><form:button class="basic_btn regist" name="categoryBtn">新規登録</form:button></div>
+     </form:form>
+      
       <c:if test = "${not empty menuMsg }">
     	<p>${menuMsg}</p>
     </c:if>

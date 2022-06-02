@@ -24,7 +24,7 @@ public class CategoryDaoImpl implements CategoryDao{
 		String sql = SQL_SELECT_CATEGORY;
 		MapSqlParameterSource param = new MapSqlParameterSource();
 		
-		List<Categories>resultList = jdbcTemplate.query(sql, new BeanPropertyRowMapper<Categories>(Categories.class));
+		List<Categories>resultList = jdbcTemplate.query(sql, param, new BeanPropertyRowMapper<Categories>(Categories.class));
 		
 		return resultList.isEmpty()? null :resultList;
 	}
