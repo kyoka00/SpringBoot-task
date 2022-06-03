@@ -1,6 +1,7 @@
 package com.example.demo.form;
 
 public class SearchForm {
+	
 	private String searchKey;
 
 	public String getSearchKey() {

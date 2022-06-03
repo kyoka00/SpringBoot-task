@@ -20,7 +20,7 @@
 			<p class="error">${LoginMsg}</p>
 		</c:if>
 
-		<form:form action="excute" modelAttribute="users" acceptCharset="UTF-8">
+		<form:form action="login" modelAttribute="users" acceptCharset="UTF-8">
 			<fieldset>
 				<div class="cp_iptxt">
 					<form:input class="base_input" path="loginId" placeholder="ID" />

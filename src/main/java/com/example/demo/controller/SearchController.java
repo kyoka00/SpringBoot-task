@@ -10,15 +10,14 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.entity.Categories;
 import com.example.demo.entity.Products;
 import com.example.demo.form.IndexForm;
 import com.example.demo.form.ProductForm;
+import com.example.demo.form.SearchForm;
 import com.example.demo.service.interfaces.CategoryService;
 import com.example.demo.service.interfaces.ProductService;
 import com.example.demo.service.interfaces.UsersService;
@@ -39,23 +38,23 @@ public class SearchController {
 		CategoryService categoryService;
 		
 		@RequestMapping(value={"/","/index"})
-		public String index(@ModelAttribute("users") IndexForm form, Model model) {
+		public String index(@ModelAttribute("users") IndexForm indexform, Model model) {
 			return "index";
 		}
 		
 		@RequestMapping(value ="logout")
-		public String logout(@ModelAttribute("users") IndexForm form) {
+		public String logout(@ModelAttribute("users") IndexForm indexform) {
 			session.invalidate();
 			return "index";
 		}
 		
-		@RequestMapping(value ="/excute", params="login" , method = RequestMethod.POST)
-		public String login(@Validated @ModelAttribute("users")  IndexForm form, BindingResult bindingResult, Model model) {
+		@RequestMapping(value ="/login", params="login" , method = RequestMethod.POST)
+		public String login(@Validated @ModelAttribute("users")  IndexForm indexform, @ModelAttribute("searchForm") SearchForm searchform, BindingResult bindingResult, Model model) {
 			if(bindingResult.hasErrors()) {
 				return "index";
 			}
 		
-			String userName = usersService.loginUser(form.getLoginId(),form.getPass());
+			String userName = usersService.loginUser(indexform.getLoginId(),indexform.getPass());
 			
 			if(userName.equals(null) || userName.equals("")) {
 				model.addAttribute("LoginMsg", "IDかPASSが一致しません");
@@ -79,11 +78,12 @@ public class SearchController {
 			return "menu";
 		}
 		
-		@RequestMapping(value ="/search")
-		public String search(@RequestParam( value = "searchKey")  String searchKey, Model model) {
-			
-			if (searchKey.equals(null) || searchKey.equals("")) {
-				searchKey ="";
+		@RequestMapping(value ="/search" ,method=RequestMethod.GET)
+		//質問:ModelAttributeはなぜ入らないといけないのか。
+		public String search(@ModelAttribute("users") IndexForm form, @ModelAttribute("searchForm")  SearchForm searchform, BindingResult bidingResult,Model model) {
+			String searchKey = searchform.getSearchKey();
+			if(searchKey.equals(null)) {
+				searchKey="";
 			}
 			
 			List<Products> products = productService.select(searchKey);
@@ -93,8 +93,8 @@ public class SearchController {
 			return "menu";
 		}
 		
-		@RequestMapping(value ="/category", params = "insertBtn")
-		public String category(@ModelAttribute("users") IndexForm form, Model model) {
+		@RequestMapping(value ="/insertMenu", params= "insertBtn", method=RequestMethod.GET)
+		public String category(@ModelAttribute("users") IndexForm form,@ModelAttribute("searchForm")  SearchForm searchform, @ModelAttribute("product") ProductForm productform,Model model) {
 			List<Categories> categoryList = categoryService.getAllCategory();
 			model.addAttribute("categoryList",categoryList);
 			return "insert";
@@ -104,8 +104,8 @@ public class SearchController {
 		
 		
 		
-		@PostMapping(value="insert", params ="insertSubmit")
-		public String insert(@Validated @ModelAttribute("products") ProductForm form, BindingResult bindingResult, Model model) {
+		@RequestMapping(value="/insertSubmit" ,method=RequestMethod.POST)
+		public String insert(@ModelAttribute("users") IndexForm indexform, @Validated @ModelAttribute("product") ProductForm form, BindingResult bindingResult, Model model) {
 			if(bindingResult.hasErrors()) {
 				return "insert";
 			}

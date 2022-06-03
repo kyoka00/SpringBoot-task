@@ -27,7 +27,7 @@
     </div>
 
     <hr>
-	<form:form action ="category" modelAttribute ="users">
+	<form:form action ="insertMenu" modelAttribute="users" method ="get"><!-- usersを入れないと画面遷移できない -->
     <div class="btn"><form:button class="basic_btn regist" name="insertBtn">新規登録</form:button></div>
      </form:form>
       
@@ -35,10 +35,10 @@
     	<p>${menuMsg}</p>
     </c:if>
     
-    <form action="${pageContext.request.contextPath}/search" id ="send" method="get" >
-      <input name = "searchKey" size="25" placeholder="キーワード検索"/>
-      <button name ="search">検索</button>
-    </form>
+    <form:form action="search" modelAttribute ="searchForm" id ="send" method ="get">
+      <form:input path = "searchKey" size="25" placeholder="キーワード検索"/>
+      <form:button>検索</form:button>
+    </form:form>
 
     <table>
     

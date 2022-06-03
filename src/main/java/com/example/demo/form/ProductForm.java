@@ -1,10 +1,18 @@
 package com.example.demo.form;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 public class ProductForm {
+	@NotNull
 	private Integer productId;
+	@NotBlank
 	private String productName;
+	@NotNull
 	private Integer categoryId;
+	@NotNull
 	private Integer price;
+	
 	private String description;
 	
 	
@@ -36,6 +44,9 @@ public class ProductForm {
 		return description;
 	}
 	public void setDescription(String description) {
+		if(description.equals(null)) {
+			description ="";
+		}
 		this.description = description;
 	}
 }

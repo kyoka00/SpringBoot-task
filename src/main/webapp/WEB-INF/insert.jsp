@@ -36,7 +36,7 @@
     <c:if test= "${not empty insertMsg}">
       <p class="error">${insertMsg}</p>
  	 </c:if>
-      <form:form action="inset" modelAttribute="users" acceptCharset="UTF-8">
+      <form:form action="insertSubmit" modelAttribute="product" acceptCharset="UTF-8">
         <fieldset class="label-130">
           <div>
             <label class="required">商品ID</label>
@@ -65,7 +65,7 @@
           </div>
           <div class="select_block">
             <label class="required">カテゴリ</label>
-            <form:select path="category" class="base-text">
+            <form:select path="categoryId" class="base-text">
               <c:forEach var= "c" items="${categoryList}" varStatus = "status">
              	<option value="${fn:escapeXml(c.getId())}">${fn:escapeXml(c.getName())}</option>
              </c:forEach>
@@ -73,23 +73,18 @@
           </div>
           <div>
             <label>商品説明</label>
-            <textarea name="description" class="base-text"></textarea>
-          </div>
-          <div>
-            <label>画像</label>
-            <input type="file" name="file">
-            <span class="error"></span>
+            <form:input path="description" class="base-text"></form:input>
           </div>
         </fieldset>
         <div class="btns">
           <button type="button" onclick="openModal()" class="basic_btn">登録</button>
-          <input type="button" onclick="location.href='AllShowServlet'" value="戻る" class="cancel_btn">
+          <input type="button" onclick="location.href=/menu" value="戻る" class="cancel_btn">
         </div>
         <div id="modal">
           <p class="modal_message">登録しますか？</p>
           <div class="btns">
             <form:button class="basic_btn" name ="insetSubmit">登録</form:button>
-            <button type="button" onclick="closeModal()" class="cancel_btn">キャンセル</button>
+            <form:button type="button" onclick="closeModal()" class="cancel_btn">キャンセル</form:button>
           </div>
         </div>
       </form:form>
