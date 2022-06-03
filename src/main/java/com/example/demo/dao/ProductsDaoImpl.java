@@ -29,7 +29,9 @@ public class ProductsDaoImpl implements ProductsDao{
 			+ "WHERE product_id = :idInsert";
 	
 	private static final String SQL_DELETE ="DELETE FROM products WHERE product_id = :productId";
-	
+	private static final String SQL_FINDBYID= "SELECT p.product_id, p.name AS product_name,"
+			+ "c.id AS category_id,c.name AS category_name, p.price, p.description "
+			+ "FROM products p JOIN categories c ON p.category_id = c.id WHERE p.product_id= :id";
 	
 	@Autowired
 	private NamedParameterJdbcTemplate jdbcTemplate;
@@ -57,7 +59,7 @@ public class ProductsDaoImpl implements ProductsDao{
 	 * 
 	 * return resultList.isEmpty() ? null :resultList.get(0); }
 	 */
-	public void insert(Products products) {
+	public int insert(Products products) {
 		String sql = SQL_INSERT;
 		MapSqlParameterSource param = new MapSqlParameterSource();
 		param.addValue("productId",products.getProductId());
@@ -67,7 +69,7 @@ public class ProductsDaoImpl implements ProductsDao{
 		param.addValue("description", products.getDescription());
 		param.addValue("createdAt", new Timestamp(System.currentTimeMillis()));
 
-		jdbcTemplate.update(sql, param);
+		 return jdbcTemplate.update(sql, param);
 
 	}
 
@@ -91,5 +93,15 @@ public class ProductsDaoImpl implements ProductsDao{
 		param.addValue("productId",productId);
 		
 		jdbcTemplate.update(sql, param);
+	}
+	
+	public Products findById(Integer id){
+		String sql = SQL_FINDBYID;
+		MapSqlParameterSource param = new MapSqlParameterSource();
+		param.addValue("id",id);
+		
+		List<Products> resultList = jdbcTemplate.query(sql, param, new BeanPropertyRowMapper<Products>(Products.class));
+		
+		return resultList.isEmpty() ? null : resultList.get(0);
 	}
 }

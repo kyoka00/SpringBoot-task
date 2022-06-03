@@ -19,12 +19,13 @@ public class ProductServiceImpl implements ProductService{
 		productsDao.delete(productId);
 	}
 	
-	public void insert(Products products){
-		productsDao.insert(products);
+	public int insert(Products products){
+		return productsDao.insert(products);
 	}
 	
 	public List<Products> select(String searchKey){
-		return productsDao.select(searchKey);
+		var list = productsDao.select(searchKey);
+		return list.isEmpty()?null : list;
 	}
 	public void update(Products products) {
 		productsDao.update(products);
@@ -40,5 +41,10 @@ public class ProductServiceImpl implements ProductService{
 		
 		return list;
 		
+	}
+	
+	public Products findById(Integer id){
+		var list = productsDao.findById(id);
+		return list;
 	}
 }

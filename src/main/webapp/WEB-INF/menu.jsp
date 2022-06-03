@@ -19,17 +19,16 @@
       <h1 class="site_logo"><a href="menu">商品管理システム</a></h1>
       <div class="user">
         <p class="user_name">${fn:escapeXml(userName)}さん、こんにちは</p>
-        <form class="logout_form" action="logout" method="get">
-          <button class="logout_btn" type="submit">
+        <a class="logout_form" href="logout">
+          <button class="logout_btn">
             <img src="images/ドアアイコン.png">ログアウト</button>
-        </form>
+        </a>
       </div>
     </div>
 
     <hr>
-	<form:form action ="insertMenu" modelAttribute="users" method ="get"><!-- usersを入れないと画面遷移できない -->
-    <div class="btn"><form:button class="basic_btn regist" name="insertBtn">新規登録</form:button></div>
-     </form:form>
+	
+    <div class="btn"><a class="basic_btn regist" href="insertMenu">新規登録</a></div>
       
       <c:if test = "${not empty menuMsg }">
     	<p>${menuMsg}</p>
@@ -74,7 +73,7 @@
             <td>${fn:escapeXml(p.getProductName())}</td>
             <td>${fn:escapeXml(p.getPrice())}</td>
             <td>${fn:escapeXml(p.getCategoryName())}</td>
-            <td><a class="detail_btn" href="./GetDetail?productNo=${status.count}">
+            <td><a class="detail_btn" href="./update/{productNo=${status.count}}">
             詳細</a></td>
           </tr>
 		</c:forEach>

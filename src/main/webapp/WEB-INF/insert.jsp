@@ -13,13 +13,13 @@
 <body>
 
   <div class="header">
-    <h1 class="site_logo"><a href="AllShowServlet">商品管理システム</a></h1>
+    <h1 class="site_logo"><a href="menu">商品管理システム</a></h1>
     <div class="user">
       <p class="user_name">${fn:escapeXml(userName)}さん、こんにちは</p>
-      <form class="logout_form" action="logout.jsp" method="get">
-        <button class="logout_btn" type="submit">
-          <img src="images/ドアアイコン.png">ログアウト</button>
-      </form>
+       <a class="logout_form" href="logout">
+          <button class="logout_btn">
+            <img src="images/ドアアイコン.png">ログアウト</button>
+        </a>
     </div>
   </div>
 
@@ -78,7 +78,7 @@
         </fieldset>
         <div class="btns">
           <button type="button" onclick="openModal()" class="basic_btn">登録</button>
-          <input type="button" onclick="location.href=/menu" value="戻る" class="cancel_btn">
+          <input type="button" onclick="location.href='menu'" value="戻る" class="cancel_btn">
         </div>
         <div id="modal">
           <p class="modal_message">登録しますか？</p>

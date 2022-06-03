@@ -4,14 +4,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="Refresh" content="2;URL=index.jsp">
+<meta http-equiv="Refresh" content="2;URL='index'">
 <title>ログアウト</title>
 <link href="css/commons.css" rel="stylesheet">
-<%
 
-	session.invalidate();
-	String msg = "ログアウトしました";
-%>
 </head>
 <body>
   <div class="header">
@@ -19,7 +15,8 @@
   </div>
   <div class="center">
     <p>
-     <%= msg %><br> ※２秒後にTOP画面に遷移します。
+     ログアウトしました<br> 
+     ※２秒後にTOP画面に遷移します。
     </p>
   </div>
 </body>
