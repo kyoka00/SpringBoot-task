@@ -131,6 +131,8 @@ public class SearchController {
 		
 		@GetMapping("updateMenu")
 		public String update(@ModelAttribute("product") ProductForm form,@ModelAttribute("searchForm") SearchForm searchForm, BindingResult bindingResult, Model model) {
+			var chosenProduct =  productService.findById(form.getProductId());
+			model.addAttribute("chosenProduct", chosenProduct);
 			return "updateInput";
 		}
 }
