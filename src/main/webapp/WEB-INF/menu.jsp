@@ -73,7 +73,7 @@
             <td>${fn:escapeXml(p.getProductName())}</td>
             <td>${fn:escapeXml(p.getPrice())}</td>
             <td>${fn:escapeXml(p.getCategoryName())}</td>
-            <td><a class="detail_btn" href="./update/{productNo=${status.count}}">
+            <td><a class="detail_btn" href="detail?productId=${p.getProductId()}">
             詳細</a></td>
           </tr>
 		</c:forEach>

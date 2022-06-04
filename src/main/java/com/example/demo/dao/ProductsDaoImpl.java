@@ -15,7 +15,7 @@ import com.example.demo.entity.Products;
 @Repository
 public class ProductsDaoImpl implements ProductsDao{
 	
-	//private static final String SQL_COUNT = "SELECT count(*) AS count FROM products p JOIN categories c ON p.category_id = c.id WHERE p.name LIKE :likeProductName OR c.name LIKE :likeCategoryName";
+	
 	private static final String SQL_WHERE = "SELECT p.product_id, p.name AS product_name,"
 			+ "c.id AS category_id,c.name AS category_name, p.price, p.description "
 			+ "FROM products p JOIN categories c ON p.category_id = c.id WHERE p.name LIKE :keyword OR "

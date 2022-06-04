@@ -75,7 +75,7 @@ public class SearchController {
 		}
 		
 		@GetMapping(value ="/menu")
-		public String menu(@ModelAttribute("users") IndexForm indexform,@ModelAttribute("searchForm")  SearchForm searchform, @ModelAttribute("product") ProductForm productform, Model model) {
+		public String menu(@ModelAttribute("searchForm")  SearchForm searchform, @ModelAttribute("product") ProductForm productform, Model model) {
 			List<Products> products = productService.select("");
 			model.addAttribute("productList", products);
 			model.addAttribute("count", products.size());
@@ -129,10 +129,32 @@ public class SearchController {
 			
 		}
 		
-		@GetMapping("updateMenu")
-		public String update(@ModelAttribute("product") ProductForm form,@ModelAttribute("searchForm") SearchForm searchForm, BindingResult bindingResult, Model model) {
+		@GetMapping("detail")
+		public String detail(@ModelAttribute("product") ProductForm form, @ModelAttribute("searchForm") SearchForm searchForm, Model model) {
 			var chosenProduct =  productService.findById(form.getProductId());
-			model.addAttribute("chosenProduct", chosenProduct);
-			return "updateInput";
+			session.setAttribute("chosenProduct", chosenProduct);
+			return "detail";
+		}
+		
+		
+		@GetMapping("delete")
+		public String delete(@ModelAttribute("product") ProductForm form, @ModelAttribute("searchForm") SearchForm searchForm, BindingResult bindingResult, Model model) {
+			List<Object> productList = productService.selectAll();
+			model.addAttribute("productList", productList.get(0));
+			model.addAttribute("count", productList.get(1));
+			return "menu";
+		}
+		
+		@GetMapping("updateMenu")
+		public String updateMenu(@ModelAttribute("product") ProductForm form, BindingResult bindingResult, Model model) {
+		 return "updateInput";
+		}
+		
+		@GetMapping("update")
+		public String update(@ModelAttribute("product") ProductForm form,@ModelAttribute("searchForm") SearchForm searchForm, BindingResult bindingResult, Model model) {
+			List<Object> productList = productService.selectAll();
+			model.addAttribute("productList", productList.get(0));
+			model.addAttribute("count", productList.get(1));
+			return "menu";
 		}
 }

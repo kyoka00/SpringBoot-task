@@ -10,6 +10,7 @@ public class ProductForm {
 	private String productName;
 	@NotNull
 	private Integer categoryId;
+	private String categoryName;
 	@NotNull
 	private Integer price;
 	
@@ -49,4 +50,12 @@ public class ProductForm {
 		}
 		this.description = description;
 	}
+	public String getCategoryName() {
+		return categoryName;
+	}
+	public void setCategoryName(String categoryName) {
+		this.categoryName = categoryName;
+	}
+	
+	
 }

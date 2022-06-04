@@ -67,13 +67,13 @@
             <label class="required">カテゴリ</label>
             <form:select path="categoryId" class="base-text">
               <c:forEach var= "c" items="${categoryList}" varStatus = "status">
-             	<option value="${fn:escapeXml(c.getId())}">${fn:escapeXml(c.getName())}</option>
+             	<option value="${c.getId()}">${fn:escapeXml(c.getName())}</option>
              </c:forEach>
             </form:select>
           </div>
           <div>
             <label>商品説明</label>
-            <form:input path="description" class="base-text"></form:input>
+            <form:textarea path="description" class="base-text"/>
           </div>
         </fieldset>
         <div class="btns">
