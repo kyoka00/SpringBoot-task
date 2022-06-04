@@ -121,7 +121,11 @@ public class SearchController {
 			
 			Products p= new Products(form.getProductId(), form.getProductName(), form.getCategoryId(),form.getPrice(), form.getDescription());
 			int count  = productService.insert(p);
-			model.addAttribute("menuMsg",count +"件登録しました");
+			if(count<0) {
+				model.addAttribute("insertMsg", "削除できませんでした");
+				return "insert";
+			}
+			model.addAttribute("menuMsg",count +"件登録されました");
 			List<Object> productList = productService.selectAll();
 			model.addAttribute("productList", productList.get(0));
 			model.addAttribute("count", productList.get(1));
@@ -139,9 +143,15 @@ public class SearchController {
 		
 		@GetMapping("delete")
 		public String delete(@ModelAttribute("product") ProductForm form, @ModelAttribute("searchForm") SearchForm searchForm, BindingResult bindingResult, Model model) {
+			var count = productService.delete(form.getProductId());
+			if(count <0) {
+				model.addAttribute("deleteMsg","削除できませんでした");
+				return "detail";
+			}
 			List<Object> productList = productService.selectAll();
 			model.addAttribute("productList", productList.get(0));
 			model.addAttribute("count", productList.get(1));
+			model.addAttribute("menuMsg",count + "件削除しました");
 			return "menu";
 		}
 		
@@ -151,7 +161,17 @@ public class SearchController {
 		}
 		
 		@GetMapping("update")
-		public String update(@ModelAttribute("product") ProductForm form,@ModelAttribute("searchForm") SearchForm searchForm, BindingResult bindingResult, Model model) {
+		public String update(@Validated @ModelAttribute("product") ProductForm form,@ModelAttribute("searchForm") SearchForm searchForm, BindingResult bindingResult, Model model) {
+			if(bindingResult.hasErrors()) {
+				return "insert";
+			}
+			Products p= new Products(form.getProductId(), form.getProductName(), form.getCategoryId(),form.getPrice(), form.getDescription());
+			var count = productService.update(p);
+			if(count <0) {
+				model.addAttribute("updateMsg","更新できませんでした");
+				return "detail";
+			}
+			model.addAttribute("menuMsg",count+"件更新されました");
 			List<Object> productList = productService.selectAll();
 			model.addAttribute("productList", productList.get(0));
 			model.addAttribute("count", productList.get(1));

@@ -73,7 +73,7 @@ public class ProductsDaoImpl implements ProductsDao{
 
 	}
 
-	public void update(Products products) {
+	public int update(Products products) {
 		String sql = SQL_UPDATE;
 		MapSqlParameterSource param = new MapSqlParameterSource();
 		param.addValue("productId",products.getProductId());
@@ -84,15 +84,15 @@ public class ProductsDaoImpl implements ProductsDao{
 		param.addValue("updatedAt", new Timestamp(System.currentTimeMillis()));
 		param.addValue("idInsert", products.getProductId());
 
-		jdbcTemplate.update(sql, param);
+		return jdbcTemplate.update(sql, param);
 	}
 
-	public void delete(Integer productId) {
+	public int delete(Integer productId) {
 		String sql = SQL_DELETE;
 		MapSqlParameterSource param = new MapSqlParameterSource();
 		param.addValue("productId",productId);
 		
-		jdbcTemplate.update(sql, param);
+		return jdbcTemplate.update(sql, param);
 	}
 	
 	public Products findById(Integer id){

@@ -15,8 +15,8 @@ public class ProductServiceImpl implements ProductService{
 	@Autowired
 	private ProductsDao productsDao;
 	
-	public void delete(Integer productId){
-		productsDao.delete(productId);
+	public int delete(Integer productId){
+		return productsDao.delete(productId);
 	}
 	
 	public int insert(Products products){
@@ -27,8 +27,8 @@ public class ProductServiceImpl implements ProductService{
 		var list = productsDao.select(searchKey);
 		return list.isEmpty()?null : list;
 	}
-	public void update(Products products) {
-		productsDao.update(products);
+	public int update(Products products) {
+		return productsDao.update(products);
 		
 	}
 	
