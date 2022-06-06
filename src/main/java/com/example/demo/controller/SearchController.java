@@ -50,16 +50,17 @@ public class SearchController {
 			return "logout";
 		}
 		@RequestMapping(value ="/login", params="login" , method = RequestMethod.POST)
-		public String login(@Validated @ModelAttribute("users")  IndexForm indexform, @ModelAttribute("searchForm") SearchForm searchform, BindingResult bindingResult, Model model) {
-			if(bindingResult.hasErrors()) {
-				return "index";
-			}
+		public String login(@Validated @ModelAttribute("users")  IndexForm indexform,  BindingResult bindingResult, @ModelAttribute("searchForm") SearchForm searchform, Model model) {
+			if (bindingResult.hasErrors()) {
+		        return "index"; 
+		    }
 		
 			String userName = usersService.loginUser(indexform.getLoginId(),indexform.getPass());
 			
 			if(userName.equals(null) || userName.equals("")) {
 				model.addAttribute("LoginMsg", "IDかPASSが一致しません");
 				return "index";
+				
 			}else {
 				session.setAttribute("userName",userName);
 				
@@ -107,10 +108,10 @@ public class SearchController {
 		
 		
 		@PostMapping(value="/insertSubmit" )
-		public String insert(@Validated @ModelAttribute("product") ProductForm form, @ModelAttribute("searchForm") SearchForm searchForm,BindingResult bindingResult, Model model) {
-			if(bindingResult.hasErrors()) {
-				return "insert";
-			}
+		public String insert(@Validated @ModelAttribute("product") ProductForm form, BindingResult bindingResult, @ModelAttribute("searchForm") SearchForm searchForm,  Model model) {
+			if (bindingResult.hasErrors()) {
+		        return "insert";
+		    }
 			
 			var idCheck =  productService.findById(form.getProductId());
 			if(idCheck != null) {
@@ -122,7 +123,7 @@ public class SearchController {
 			Products p= new Products(form.getProductId(), form.getProductName(), form.getCategoryId(),form.getPrice(), form.getDescription());
 			int count  = productService.insert(p);
 			if(count<0) {
-				model.addAttribute("insertMsg", "削除できませんでした");
+				model.addAttribute("insertMsg", "登録できませんでした");
 				return "insert";
 			}
 			model.addAttribute("menuMsg",count +"件登録されました");
@@ -161,7 +162,7 @@ public class SearchController {
 		}
 		
 		@PostMapping("update")
-		public String update(@Validated @ModelAttribute("product") ProductForm form,@ModelAttribute("searchForm") SearchForm searchForm, BindingResult bindingResult, Model model) {
+		public String update(@Validated @ModelAttribute("product") ProductForm form, BindingResult bindingResult, @ModelAttribute("searchForm") SearchForm searchForm,  Model model) {
 			if(bindingResult.hasErrors()) {
 				return "insert";
 			}

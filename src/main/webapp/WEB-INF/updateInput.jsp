@@ -29,7 +29,7 @@
 
   <div class="insert">
     <div class="form_body">
-     <c:if test = "${not empty msg }">
+     <c:if test = "${not empty updateMsg }">
     	<p class="error">${updateMsg}</p>
     </c:if>
       
@@ -40,23 +40,23 @@
             <label>商品ID</label>
             <form:input type="text" path="productId" value="${chosenProduct.getProductId()}" class="base-text"/>
             
-            <c:if test = "${not empty msg }">
-    			<span class="error">${nullErrorId}</span>
+            <c:if test = "${empty updateMsg }">
+    			<form:errors path="productId" cssStyle="color: red" />
    			 </c:if>
           </div>
           <div>
             <label>商品名</label>
             <form:input type="text" path="productName" value="${chosenProduct.getProductName()}" class="base-text"/>
             
-            <c:if test = "${not empty msg }">
-    			<p class="error">${nullErrorName}</p>
+            <c:if test = "${empty updateMsg }">
+    			<form:errors path="productName" cssStyle="color: red" />
     		</c:if>
           </div>
           <div>
             <label>単価</label>
             <form:input type="text" path="price" value="${chosenProduct.getPrice()}" class="base-text"/>
-            <c:if test = "${not empty msg }">
-    			<span class="error">${nullErrorPrice}</span>
+            <c:if test = "${empty updateMsg }">
+    			<form:errors path="price" cssStyle="color: red" />
     		</c:if>
           </div>
           <div>

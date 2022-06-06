@@ -23,16 +23,17 @@
 		<form:form action="login" modelAttribute="users" acceptCharset="UTF-8">
 			<fieldset>
 				<div class="cp_iptxt">
-					<form:input class="base_input" path="loginId" placeholder="ID" />
+					<form:input class="base_input" path="loginId" placeholder="ID" /><br>
 					<i class="fa fa-user fa-lg fa-fw" aria-hidden="true"></i>
 					<c:if test="${empty Loginmsg}">
 						<form:errors path="loginId" cssStyle="color: red" />
 					</c:if>
+					
 				</div>
 
 				<div>
 					<form:input class="base_input" type="password" path="pass"
-						placeholder="PASS" />
+						placeholder="PASS" /><br>
 					<c:if test="${empty Loginmsg}">
 						<form:errors path="pass" cssStyle="color: red" />
 					</c:if>

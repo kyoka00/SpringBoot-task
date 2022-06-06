@@ -41,8 +41,8 @@
           <div>
             <label class="required">商品ID</label>
             <form:input path="productId" class="base-text"/>
-            <c:if test= "${not empty insertMsg}">
-     		 	<form:errors path="productId" cssStyle="color: red" />
+            <c:if test= "${empty insertMsg}">
+     		 	<form:errors path="productId" cssStyle="color: red"/>
  			 </c:if>
             
             
@@ -50,16 +50,16 @@
           <div>
             <label class="required">商品名</label>
             <form:input path="productName" class="base-text"/>
-            <c:if test= "${not empty insertMsg}">
-     		 <form:errors path="productName" cssStyle="color: red" />
+            <c:if test= "${empty insertMsg}">
+     		 <form:errors path="productName" cssStyle="color: red"/>
  			 </c:if>
             
           </div>
           <div>
             <label class="required">単価</label>
             <form:input path="price" class="base-text"/>
-            <c:if test= "${not empty insertMsg}">
-      			<form:errors path="price" cssStyle="color: red" />
+            <c:if test= "${empty insertMsg}">
+      			<form:errors path="price" cssStyle="color: red"/>
  	 		</c:if>
             
           </div>
