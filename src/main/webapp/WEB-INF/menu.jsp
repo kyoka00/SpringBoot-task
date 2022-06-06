@@ -40,20 +40,21 @@
     </form:form>
 
     <table>
-    
+    	
         <div class="caption"><p>検索結果：${count}件</p></div>
         <div class="order">
-
-          <select class="base-text" name = "order"  form ="send">
-            <option value ="1">並び替え</option>
-            <option value = "2">商品ID</option>
-            <option value = "3">カテゴリ</option>
-            <option value ="4"> 単価：安い順</option>
-            <option value="5">単価：高い順</option>
-            <option value ="6">登録日：古い順</option>
-            <option value ="7">登録日：新しい順</option>
-          </select>
-        
+		<form:form action="sort" modelAttribute="searchForm" method= "get">
+          <form:select class="base-text" path = "sortCase">
+            <form:option value ="0">並び替え</form:option>
+            <form:option value = "1">商品ID</form:option>
+            <form:option value = "2">カテゴリ</form:option>
+            <form:option value ="3"> 単価：安い順</form:option>
+            <form:option value="4">単価：高い順</form:option>
+            <form:option value ="5">登録日：古い順</form:option>
+            <form:option value ="6">登録日：新しい順</form:option>
+          </form:select>
+          <form:button>並び替え</form:button>
+        </form:form>
         </div>
         
       <thead>

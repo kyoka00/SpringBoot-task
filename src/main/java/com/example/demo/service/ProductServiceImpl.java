@@ -27,6 +27,7 @@ public class ProductServiceImpl implements ProductService{
 		var list = productsDao.select(searchKey);
 		return list.isEmpty()?null : list;
 	}
+	
 	public int update(Products products) {
 		return productsDao.update(products);
 		

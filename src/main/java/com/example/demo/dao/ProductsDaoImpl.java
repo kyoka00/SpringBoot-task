@@ -17,7 +17,7 @@ public class ProductsDaoImpl implements ProductsDao{
 	
 	
 	private static final String SQL_WHERE = "SELECT p.product_id, p.name AS product_name,"
-			+ "c.id AS category_id,c.name AS category_name, p.price, p.description "
+			+ "c.id AS category_id,c.name AS category_name, p.price, p.description, p.created_at "
 			+ "FROM products p JOIN categories c ON p.category_id = c.id WHERE p.name LIKE :keyword OR "
 			+ "c.name LIKE :keyword ORDER BY p.product_id";
 	

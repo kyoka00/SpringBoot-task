@@ -34,7 +34,7 @@
     </c:if>
       
 	
-      <form:form action="update" method="get" modelAttribute="product">
+      <form:form action="update" method="post" modelAttribute="product">
         <fieldset class="label-130">
           <div>
             <label>商品ID</label>
@@ -61,7 +61,7 @@
           </div>
           <div>
             <label>カテゴリ</label> 
-            <form:select path="categoryName" class="base-text" >
+            <form:select path="categoryId" class="base-text" >
             
              <c:forEach var= "c" items="${categoryList}" varStatus = "status">
              	<option value="${c.getId()}" <c:if test="${c.getId() == chosenProduct.getCategoryId()}">selected</c:if>>${fn:escapeXml(c.getName())}</option>

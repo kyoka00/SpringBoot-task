@@ -64,7 +64,7 @@ public class SearchController {
 				session.setAttribute("userName",userName);
 				
 				List<Products> products = productService.select("");
-				model.addAttribute("productList", products);
+				session.setAttribute("productList", products);
 				model.addAttribute("count", products.size());
 				
 				List<Categories> categoryList = categoryService.getAllCategory();
@@ -77,7 +77,7 @@ public class SearchController {
 		@GetMapping(value ="/menu")
 		public String menu(@ModelAttribute("searchForm")  SearchForm searchform, @ModelAttribute("product") ProductForm productform, Model model) {
 			List<Products> products = productService.select("");
-			model.addAttribute("productList", products);
+			session.setAttribute("productList", products);
 			model.addAttribute("count", products.size());
 			return "menu";
 		}
@@ -91,7 +91,7 @@ public class SearchController {
 			}
 			
 			List<Products> products = productService.select(searchKey);
-			model.addAttribute("productList", products);
+			session.setAttribute("productList", products);
 			model.addAttribute("count", products.size());
 			
 			return "menu";
@@ -127,7 +127,7 @@ public class SearchController {
 			}
 			model.addAttribute("menuMsg",count +"件登録されました");
 			List<Object> productList = productService.selectAll();
-			model.addAttribute("productList", productList.get(0));
+			session.setAttribute("productList", productList.get(0));
 			model.addAttribute("count", productList.get(1));
 			return "menu";
 			
@@ -149,7 +149,7 @@ public class SearchController {
 				return "detail";
 			}
 			List<Object> productList = productService.selectAll();
-			model.addAttribute("productList", productList.get(0));
+			session.setAttribute("productList", productList.get(0));
 			model.addAttribute("count", productList.get(1));
 			model.addAttribute("menuMsg",count + "件削除しました");
 			return "menu";
@@ -160,7 +160,7 @@ public class SearchController {
 		 return "updateInput";
 		}
 		
-		@GetMapping("update")
+		@PostMapping("update")
 		public String update(@Validated @ModelAttribute("product") ProductForm form,@ModelAttribute("searchForm") SearchForm searchForm, BindingResult bindingResult, Model model) {
 			if(bindingResult.hasErrors()) {
 				return "insert";
@@ -173,8 +173,40 @@ public class SearchController {
 			}
 			model.addAttribute("menuMsg",count+"件更新されました");
 			List<Object> productList = productService.selectAll();
-			model.addAttribute("productList", productList.get(0));
+			session.setAttribute("productList", productList.get(0));
 			model.addAttribute("count", productList.get(1));
+			return "menu";
+		}
+		
+		@GetMapping("sort")
+		public String sort(@ModelAttribute("searchForm")  SearchForm searchform, @ModelAttribute("product") ProductForm productform, Model model) {
+			int sortNo = searchform.getSortCase();
+			List<Products> list = (List<Products>) session.getAttribute("productList");
+			switch (sortNo) {
+			case 0,1:
+				list.sort((p1, p2) -> p1.getProductId() <= p2.getProductId() ? -1 : 1);
+				break;
+			case 2:
+				list.sort((p1,p2) -> p1.getCategoryId() <= p2.getCategoryId() ? -1 :1);
+				break;
+			case 3:
+				list.sort((p1, p2) -> p1.getPrice() <= p2.getPrice() ? -1 : 1);
+				break;
+			case 4:
+				list.sort((p1, p2) -> p1.getPrice() >= p2.getPrice() ? -1 : 1);
+				break;
+			case 5:
+				list.sort((p1, p2) -> p1.getCreatedAt().compareTo(p2.getCreatedAt()));
+				break;
+			case 6:
+				list.sort((p1, p2) -> p2.getCreatedAt().compareTo(p1.getCreatedAt()));
+				break;
+			default:
+				list.sort((p1, p2) -> p1.getProductId() <= p2.getProductId() ? -1 : 1);
+				break;
+			}
+			model.addAttribute("productList",list);
+			model.addAttribute("count",list.size());
 			return "menu";
 		}
 }
